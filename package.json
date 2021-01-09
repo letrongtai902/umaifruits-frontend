@@ -49,7 +49,7 @@
     "extends": "react-app"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "serve -s build",
     "build": "craco build",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "craco test",
