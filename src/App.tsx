@@ -1,4 +1,4 @@
-import './App.css';
+import './App.less';
 
 import * as React from 'react';
 

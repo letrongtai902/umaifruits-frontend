@@ -2,9 +2,10 @@ import './index.less';
 
 import * as React from 'react';
 
-import { Button, Card, Checkbox, Col, Form, Input, Modal, Row } from 'antd';
+import { Button, Checkbox, Form, Input, Modal, Divider } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { inject, observer } from 'mobx-react';
+import imageFormLogin from '../../images/user.png';
 
 import AccountStore from '../../stores/accountStore';
 import AuthenticationStore from '../../stores/authenticationStore';
@@ -73,80 +74,55 @@ class Login extends React.Component<ILoginProps> {
 
     const { loginModel } = this.props.authenticationStore!;
     return (
-      <Form className="" onFinish={this.handleSubmit} ref={this.formRef}>
-          <Row style={{ marginTop: 100 }}>
-            <Col span={8} offset={8}>
-              <Card>
-                <Row>
-                  {!!this.props.sessionStore!.currentLogin.tenant ? (
-                    <Col span={24} offset={0} style={{ textAlign: 'center' }}>
-                      <Button type="link" onClick={loginModel.toggleShowModal}>
-                        {L('CurrentTenant')} : {this.props.sessionStore!.currentLogin.tenant.tenancyName}
-                      </Button>
-                    </Col>
-                  ) : (
-                    <Col span={24} offset={0} style={{ textAlign: 'center' }}>
-                      <Button type="link" onClick={loginModel.toggleShowModal}>
-                        {L('NotSelected')}
-                      </Button>
-                    </Col>
-                  )}
-                </Row>
-              </Card>
-            </Col>
-          </Row>
+      <div style={{justifyContent:"center",marginTop:"10%", marginLeft:"25%",marginRight:"5%", maxHeight:"200px", maxWidth:"1000px"}}>
+           <div className="row justify-content-center">
+              <div className="col-xl-10 col-lg-12 col-md-9">
+                  <div className="card o-hidden border-0 shadow-lg my-5"  >
+                      <div className="card-body p-0" >
+                          <div className="row">
+                              <div className="col-lg-6 d-none d-lg-block bg-login-image" style={{backgroundImage:imageFormLogin}}></div>
+                              <div className="col-lg-6">
+                                  <div className="p-5">
+                                      <div className="text-center">
+                                          <h1 className="h4 text-gray-900 mb-4">Chào mừng trở lại!</h1>
+                                      </div>
+                                      <Form className="" onFinish={this.handleSubmit} ref={this.formRef}>
+                                          <div className="form-group" >
+                                          <FormItem name={'userNameOrEmailAddress'} rules={rules.userNameOrEmailAddress}>
+                                          <Input placeholder={L('UserNameOrEmail')} prefix={<UserOutlined/>} type="email" size="large" />
+                                          </FormItem>
+                                          </div>
+                                          <div className="form-group">
+                                          <FormItem name={'password'} rules={rules.password}>
+                                          <Input placeholder={L('Password')} prefix={<LockOutlined/>} type="password" size="large" />  
+                                          </FormItem>
+                                          </div>
+                                          <div className="form-group">
+                                              <div className="custom-control custom-checkbox small">
+                                                  <Checkbox checked={loginModel.rememberMe} onChange={loginModel.toggleRememberMe} style={{ paddingRight: 8 }}  />
+                                                    {L('RememberMe')}
+                                              </div>
+                                          </div>
+                                          <a href="index.html" className="btn btn-primary btn-user btn-block">
+                                              <Button style={{ backgroundColor: 'transparent', color: 'white', borderRadius:'8px',height:'0px', borderColor:'transparent' }} htmlType={'submit'}>
+                                                  Login
+                                              </Button>
+                                          </a>
+                                          
+                                          <Divider> Phương thức đăng nhập khác </Divider>
 
-          <Row>
-            <Modal
-              visible={loginModel.showModal}
-              onCancel={loginModel.toggleShowModal}
-              onOk={this.changeTenant}
-              title={L('ChangeTenant')}
-              okText={L('OK')}
-              cancelText={L('Cancel')}
-            >
-              <Row>
-                <Col span={8} offset={8}>
-                  <h3>{L('TenancyName')}</h3>
-                </Col>
-                <Col>
-                  <FormItem name={'tenancyName'}>
-                    <Input placeholder={L('TenancyName')} prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} size="large" />
-                  </FormItem>
-                  {!this.formRef.current?.getFieldValue('tenancyName') ? <div>{L('LeaveEmptyToSwitchToHost')}</div> : ''}
-                </Col>
-              </Row>
-            </Modal>
-          </Row>
-          <Row style={{ marginTop: 10 }}>
-            <Col span={8} offset={8}>
-              <Card>
-                <div style={{ textAlign: 'center' }}>
-                  <h3>{L('WellcomeMessage')}</h3>
-                </div>
-                <FormItem name={'userNameOrEmailAddress'} rules={rules.userNameOrEmailAddress}>
-                  <Input placeholder={L('UserNameOrEmail')} prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} size="large" />
-                </FormItem>
-
-                <FormItem name={'password'} rules={rules.password}>
-                  <Input placeholder={L('Password')} prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" size="large" />
-                </FormItem>
-                <Row style={{ margin: '0px 0px 10px 15px ' }}>
-                  <Col span={12} offset={0}>
-                    <Checkbox checked={loginModel.rememberMe} onChange={loginModel.toggleRememberMe} style={{ paddingRight: 8 }} />
-                    {L('RememberMe')}
-                  </Col>
-
-                  <Col span={8} offset={4}>
-                    <Button style={{ backgroundColor: '#f5222d', color: 'white' }} htmlType={'submit'} danger>
-                      {L('LogIn')}
-                    </Button>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-          </Row>
-      </Form>
+                                          <a href="index.html" className="btn btn-google btn-user btn-block">
+                                              <i className="fab fa-google fa-fw"></i> Login with Google
+                                          </a>
+                                      </Form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+           </div>
     );
   }
 }
