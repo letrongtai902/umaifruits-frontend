@@ -89,7 +89,7 @@ class Login extends React.Component<ILoginProps> {
                                       <Form className="" onFinish={this.handleSubmit} ref={this.formRef}>
                                           <div className="form-group" >
                                           <FormItem name={'userNameOrEmailAddress'} rules={rules.userNameOrEmailAddress}>
-                                          <Input placeholder={L('UserNameOrEmail')} prefix={<UserOutlined/>} type="email" size="large" />
+                                          <Input placeholder={L('UserNameOrEmail')} prefix={<UserOutlined/>} size="large" />
                                           </FormItem>
                                           </div>
                                           <div className="form-group">
